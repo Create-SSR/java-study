@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="717fe688-fcc2-4fb7-8b5d-c52f4c5d5e59" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/day/day.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/day/src/Day001.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/day/src/Day002.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/day/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/day/基础知识" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day/src/Day003.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day/src/Day004.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/day/src/Day005.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day/src/Day001.java" beforeDir="false" afterPath="$PROJECT_DIR$/day/src/Day001.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +47,12 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "fileTemplates",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="应用程序.Day002">
+  <component name="RunManager" selected="应用程序.Day005">
     <configuration name="Day001" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Day001" />
       <module name="day" />
@@ -69,8 +67,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Day003" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Day003" />
+      <module name="day" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day004" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Day004" />
+      <module name="day" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Day005" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Day005" />
+      <module name="day" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.Day005" />
+        <item itemvalue="应用程序.Day003" />
+        <item itemvalue="应用程序.Day004" />
         <item itemvalue="应用程序.Day002" />
         <item itemvalue="应用程序.Day001" />
       </list>
@@ -85,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1676465588667</updated>
       <workItem from="1676465589803" duration="1350000" />
-      <workItem from="1676548351707" duration="9646000" />
+      <workItem from="1676548351707" duration="43233000" />
     </task>
     <servers />
   </component>
