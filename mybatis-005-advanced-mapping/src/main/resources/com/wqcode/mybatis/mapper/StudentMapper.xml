@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wqcode.mybatis.mapper.StudentMapper">
+
+    <!--
+        多对一映射的第一种方式：一条SQL语句，级联属性映射
+    -->
+    <resultMap id="studentResultMap" type="student">
+        <id property="num" column="num"/>
+        <result property="name" column="name"/>
+        <result property="clazz.classNum" column="classNum"/>
+        <result property="clazz.className" column="classname"/>
+    </resultMap>
+
+    <select id="selectByNum" resultMap="studentResultMap">
+        select s.num,
+               s.name,
+               c.classnum,
+               c.classname
+        from t_student s
+                 left join t_class c on s.classno = c.classnum
+        where s.num = #{num}
+    </select>
+
+    <!--
+        多对一映射的第二种方式：一条SQL语句，association
+    -->
+    <resultMap id="studentResultMapAssociation" type="student">
+        <id property="num" column="num"/>
+        <result property="name" column="name"/>
+        <association property="clazz" javaType="Cid">
+            <id property="classNum" column="classNum"/>
+            <result property="className" column="className"/>
+        </association>
+    </resultMap>
+
+
+    <select id="selectByIdAssociation" resultMap="studentResultMapAssociation">
+        select s.num,
+               s.name,
+               c.classnum,
+               c.classname
+        from t_student s
+                 left join t_class c on s.classno = c.classnum
+        where s.num = #{num};
+    </select>
+
+
+    <!--
+        多对一映射的第三种方式：两条SQL语句，分布查询
+            优点：可复用  延迟加载
+
+            延迟加载的核心原理是： 用到的时候去查，不用的时候步查询
+            如何开启延迟查询： 在 association 标签中加 fetchType="lazy"
+            这种方式局部配置
+
+            全局配置延迟加载的方式，在mybatis配置文件中加 lazyLoadingEnabled="true"
+
+    -->
+    <resultMap id="studentResultMapByStep" type="Student">
+        <id property="num" column="num"/>
+        <result property="name" column="name"/>
+        <!--第二步查询-->
+        <association property="clazz" select="com.wqcode.mybatis.mapper.ClassMapper.selectByCidStep2" column="classNum" fetchType="eager">
+
+        </association>
+    </resultMap>
+
+    <select id="selectByIdStep1" resultMap="studentResultMapByStep">
+        select num,  classno as classNum
+        from t_student
+        where num = #{num};
+    </select>
+
+    <select id="selectByClassnum" resultType="student">
+        select * from t_student where classno = #{classno}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com/wqcode/mybatis/mapper/CarMapper">
+    <!--id是这条SQL语句的唯一标识-->
+
+    <select id="selectById" resultType="com.wqcode.mybatis.pojo.Car">
+        select
+            id,
+            car_num as carNum,
+            brand,
+            guide_price as guidePrice,
+            produce_time as produceTime,
+            car_type as carType
+            from t_act where id = #{id};
+    </select>
+
+    <update id="update" >
+        update t_act set
+        car_num=#{carNum},brand=#{brand},guide_price=#{guidePrice},prodeuce_time=#{prodeuceTime},car_type=#{carType}
+        where id = #{id};
+    </update>
+
+    <delete id="delete">
+            delete from t_car where id = #{id};
+    </delete>
+
+    <insert id="insert">
+        insert into t_car values(null,#{id},#{carNum},#{brand},#{guidePrice},#{produceTime},#{carType});
+    </insert>
+
+    <!--useGeneratedKeys ：true 使用自动生成主键值
+        keyProperty   指定主键值给对象的哪个属性，这个表示主键值赋值给Car对象的id属性-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into t_car values(null,#{id},#{carNum},#{brand},#{guidePrice},#{produceTime},#{carType});
+    </insert>
+
+</mapper>
