@@ -21,4 +21,8 @@ public interface AccountDao {
      * */
     int updateByActno(Account act);
 
+    public static void main(String[] args) {
+        System.out.println("agin");
+    }
+
 }
