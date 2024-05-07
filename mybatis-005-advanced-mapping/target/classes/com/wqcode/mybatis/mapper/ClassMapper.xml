@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wqcode.mybatis.mapper.ClassMapper">
+
+    <select id="selectByCidStep2" resultType="Cid">
+        select *
+        from t_class
+        where classnum = #{classNum};
+    </select>
+
+    <resultMap id="classResultMap" type="Cid">
+        <id property="classNum" column="classNum"/>
+        <result property="className" column="className"/>
+
+        <collection property="students" ofType="Student">
+            <id property="num" column="num"/>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+    <select id="selectByCollection" resultMap="classResultMap">
+        select c.classnum, c.classname, s.num, s.name
+        from t_class c
+                 left join t_student s on c.classnum = s.classno
+        where c.classnum = #{classNum};
+
+    </select>
+
+    <resultMap id="classResultMapByStep" type="Cid">
+        <id property="classNum" column="classNum"/>
+        <result property="className" column="className"/>
+
+        <collection property="students" select="com.wqcode.mybatis.mapper.StudentMapper.selectByClassnum" column="classno"/>
+    </resultMap>
+
+    <select id="selectByStep1" resultMap="classResultMapByStep">
+        select classnum, classname
+        from t_class
+        where classnum = #{classNum};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wqcode.mybatis.param.mapper.StudentMapper">
+    <!--id是这条SQL语句的唯一标识
+        parameterType="java.lang.Long   作用：告诉mybatis框架，这个方法的参数是什么类型
+
+        mybatis框架自带类型自动推断机制，大部分情况下，parameterType="java.lang.Long 是可以省略的
+        mybatis框架实际上内置了很多别名，可以在myabtis框架开发手册上查看
+        Long  long(别名)
+    -->
+
+    <select id="selectTotal" resultType="long">
+        select count(*) from t_student1;
+    </select>
+
+    <select id="selectById" resultType="Student" parameterType="java.lang.Long">
+        select
+            *
+        from t_student1
+        where id = #{id};
+    </select>
+
+    <select id="selectByName" resultType="Student" parameterType="java.lang.String">
+        select
+            *
+        from t_student1
+        where name = #{name};
+    </select>
+
+    <select id="selectByBirth" resultType="Student">
+        select
+            *
+        from t_student1
+        where birth = #{birth};
+    </select>
+
+    <select id="selectBySex" resultType="Student" >
+        select
+            *
+        from t_student1
+        where sex = #{sex};
+    </select>
+
+    <!--//多参数
+            引用必须是 arg0  arg1  param1 param2 ...
+            低版本的mybatis中使用的是  #{0}  #{1}
+            高版本的mybatis中使用的是  #{arg0}  #{arg1}
+    -->
+    <select id="selectByNameAndSex" resultType="Student" >
+        select
+            *
+        from t_student1
+        where name = #{arg0} and sex = #{arg1};
+    </select>
+
+    <select id="selectByNameAndSex2" resultType="Student" >
+        select
+            *
+        from t_student1
+        where name = #{name} and sex = #{sex};
+    </select>
+
+    <select id="selectAllRetListMap" resultType="map" >
+        select * from t_student1;
+    </select>
+
+    <select id="selectAllRetMap" resultType="map" >
+        select * from t_student1;
+    </select>
+
+
+    <!--专门定义一个结果映射，在这个结果映射当中指定数据库表的字段名和java类的属性名的对应关系
+            1，type属性，指定POJO类的类名
+            2，ID属性，指定ResultMap的唯一标识，这个ID用在select标签中
+    -->
+    <resultMap id="studentResultMap" type="Student">
+        <!--如果数据库中有主键，建议在这里配置一个ID标签，注意这个ID不是必须的，但是可以提高mybatis提高效率-->
+        <id property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <!--property后面填写POJO类中的属性名
+            column 后面写数据库总字段名
+            如果property 和 column是一致的，可以不写
+            -->
+        <result property="age" column="age"/>
+        <result property="name" column="name"/>
+        <result property="birth" column="birth"/>
+        <result property="height" column="height"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+    <select id="selectAllByResultMap" resultMap="studentResultMap">
+        select * from t_student1;
+    </select>
+
+
+    <insert id="insertStudentByMap" parameterType="map">
+        insert into
+            t_student1
+        values(#{id},#{姓名},#{年龄},#{身高},#{生日},#{性别});
+    </insert>
+
+    <insert id="insertStudentByPojo" parameterType="map">
+        insert into
+            t_student1
+        values(#{id},#{name},#{age},#{height},#{birth},#{sex});
+    </insert>
+
+
+
+
+
+
+
+</mapper>

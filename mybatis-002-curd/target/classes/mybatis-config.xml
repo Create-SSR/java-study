@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="jdbc.properties"/>
+
+    <typeAliases>
+        <!--给resultType起别名;  别名不区分大小写
+            nameSpace不能起别名
+            -->
+        <typeAlias type="com.wqcode.mybatis.pojo.Car" alias="aaa"/>
+        <!--省略alias   默认是类的简名：Log -->
+        <typeAlias type="com.wqcode.mybatis.pojo.Log"/>
+
+
+        <!--将这个包下的所有类全部自动起别名，别名就是类的简名，不区分大小写-->
+        <package name="com.wqcode.mybatis.pojo"/>
+    </typeAliases>
+    <environments default="powernodeDB">
+        <environment id="powernodeDB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+                <property name="" value=""/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--指定CarMapper.xml文件的路径，默认从根路径下查找-->
+        <mapper resource="CarMapper.xml"/>
+        <mapper resource="LogMapper.xml"/>
+
+        <mapper url="http://"/>
+        <mapper class="com.wqcode.mybatis.mapper.LogMapper"/>
+    </mappers>
+</configuration>

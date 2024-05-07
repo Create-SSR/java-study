@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wqcode.mybatis.mapper.CarMapper">
+    <!--id是这条SQL语句的唯一标识
+        parameterType="java.lang.Long   作用：告诉mybatis框架，这个方法的参数是什么类型
+
+        mybatis框架自带类型自动推断机制，大部分情况下，parameterType="java.lang.Long 是可以省略的
+        mybatis框架实际上内置了很多别名，可以在myabtis框架开发手册上查看
+        Long  long(别名)
+    -->
+
+
+    <!--专门定义一个结果映射，在这个结果映射当中指定数据库表的字段名和java类的属性名的对应关系
+            1，type属性，指定POJO类的类名
+            2，ID属性，指定ResultMap的唯一标识，这个ID用在select标签中
+    -->
+
+    <select id="selectByMultiCondition" resultType="Car">
+        select * from t_car
+        <!--
+            trim标签
+                属性：
+                   prefix  加前缀
+                   suffix  加后缀
+                   prefixOverrides  去掉前缀
+                   suffixOverrides  去掉后缀
+        -->
+
+        <trim prefix="where" suffix="" prefixOverrides="and|or" suffixOverrides="" >
+            <if test="brand != null and brand != ''">
+                brand like "%"#{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                and guide_price > #{guidePrice}
+            </if>
+            <if test="carType != null and carType != ''">
+                and car_type = #{carType}
+            </if>
+
+        </trim>
+
+
+    </select>
+
+    <!--<select id="selectByMultiCondition" resultType="Car">
+        select * from t_car
+        /*
+            where标签的作用：让where语句更加动态智能
+            所有条件都为空时，where标签保证不会生产where字句
+            自动去除某些语句中多余的and 和 or
+        */
+
+        <where>
+
+            &lt;!&ndash;<&#45;&#45;
+            1，if标签中test属性是必须的
+            2，if标签中test属性的值是true 或者 false
+            3，如果test是true ，则if标签中的SQL语句会进行拼接，反之则不会
+            4，test属性中可以使用：
+                当是用来@param注解，那么test中要出现的是注解指定的参数名
+            5,在mybatis中的动态SQL中， 不能使用&&  只能使用and
+           &ndash;&gt;&ndash;&gt;
+
+            <if test="brand != null and brand != ''">
+                brand like "%"#{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                and guide_price > #{guidePrice}
+            </if>
+            <if test="carType != null and carType != ''">
+                and car_type = #{carType}
+            </if>
+        </where>
+    </select>-->
+
+    <update id="updateBySet">
+        update t_car
+        <set>
+            <if test="carNum != null and carNum !=''">car_num = #{carNum},</if>
+            <if test="brand != null and brand !=''">brand = #{brand},</if>
+            <if test="guidePrice != null and guidePrice !=''">guide_price = #{guidePrice},</if>
+            <if test="carType != null and carType !=''">car_type = #{carType},</if>
+        </set>
+        where
+            id = #{id};
+    </update>
+
+    <select id="selectByChoose" resultType="Car">
+        select * from t_car
+        <where>
+            <choose>
+                <when test="brand != null and brand !=''">brand like "%"#{brand}"%"</when>
+                <when test="guideType != null and guideType !=''">guide_price > #{guidePrice}</when>
+                <when test="carType != null and carType !=''">cat_type = #{carType}</when>
+            </choose>
+        </where>
+    </select>
+
+    <!--
+        foreach标签：
+            属性：
+                collection：指定数组或者集合
+                item ：数组或者集合中的元素
+                separator： 循环外的分隔符
+
+
+    -->
+    <!--<delete id="deleteByIds">
+
+        delete from t_car where id in(
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </delete>-->
+
+    <delete id="deleteByIds">
+        /*in 后面的小括号可以省略，在foreach中写入open 和close就行*/
+        delete from t_car where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+    <insert id="insertBatch">
+        insert into t_car values
+        <foreach collection="carList" item="car" separator=",">
+            (#{car.id},#{car.carNum},#{car.brand},#{car.guidePrice},#{car.produceTime},#{car.carType})
+        </foreach>
+    </insert>
+
+
+
+
+</mapper>

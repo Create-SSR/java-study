@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com/wqcode/mybatis/mapper/LogMapper">
+
+    <select id="selectAllByTable" resultType="com/wqcode/mybatis/mapper/pojo/Log">
+        select * from t_car
+    </select>
+    <!--批量删除-->
+    <delete id="deleteAllByTable" >
+        delete from t_car where id in(${ids})
+    </delete>
+
+    <!--模糊查询-->
+    <select id="selectByBrand" resultType="com/wqcode/mybatis/mapper/pojo/Log">
+        select * from t_car where brand like '%${brand}%'; //第一种方式
+        select * from t_car where brand like concat('%',#{brand},'%'); //第二种方式 concat函数
+        select * from t_car where brand like concat('%',''${brand}'','%'); //第三种方式 concat函数
+        select * from t_car where brand like "%"#{brand}"%"; //第四种方式 concat函数
+    </select>
+
+</mapper>
